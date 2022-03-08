@@ -1,9 +1,0 @@
-<PAMDataset>
-  <PAMRasterBand band="1">
-    <Description>d32e6e89c3</Description>
-    <NoDataValue>-2.14748364800000E+09</NoDataValue>
-    <Metadata>
-      <MDI key="SourceBandIndex">2</MDI>
-    </Metadata>
-  </PAMRasterBand>
-</PAMDataset>
