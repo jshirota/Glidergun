@@ -6,6 +6,6 @@ SpatialAnalyst sa = new(args[0]);
 
 var dem = await sa.CreateAsync(@"..\..\..\..\Data\dem.tif");
 
-var r = dem.Randomize();
+var dem_ft = 3.28084 * dem;
 
-Console.WriteLine(r);
+Console.WriteLine(dem_ft);
