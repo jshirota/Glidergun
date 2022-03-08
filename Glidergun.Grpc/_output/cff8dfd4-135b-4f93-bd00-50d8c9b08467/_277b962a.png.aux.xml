@@ -1,0 +1,12 @@
+<PAMDataset>
+  <SRS dataAxisToSRSAxisMapping="2,1,3">LOCAL_CS[]</SRS>
+  <Metadata>
+    <MDI key="DataType">Generic</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Metadata>
+      <MDI key="BandName">4ce56ab7</MDI>
+      <MDI key="SourceBandIndex">0</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>

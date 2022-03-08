@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+package glidergun;
+
+service Grpc {
+    rpc token (TokenRequest) returns (TokenResponse) {}
+    rpc check (CheckRequest) returns (RasterInfoResponse) {}
+    rpc create (CreateRequest) returns (RasterInfoResponse) {}
+    rpc save (SaveRequest) returns (RasterResponse) {}
+
+    rpc mathRaster (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterRaster (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterInt (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterDouble (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathIntRaster (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathDoubleRaster (MathRequest) returns (RasterInfoResponse) {}
+    
+    rpc mathRasterRasterRaster (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterRasterInt (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterIntRaster (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterIntInt (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterRasterDouble (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterDoubleRaster (MathRequest) returns (RasterInfoResponse) {}
+    rpc mathRasterDoubleDouble (MathRequest) returns (RasterInfoResponse) {}
+
+    rpc aspect (AspectRequest) returns (RasterInfoResponse) {}
+    rpc color (ColorRequest) returns (RasterInfoResponse) {}
+    rpc composite (CompositeRequest) returns (RasterInfoResponse) {}
+    rpc extract (ExtractRequest) returns (RasterInfoResponse) {}
+    rpc extractValues (ExtractValuesRequest) returns (ExtractValuesResponse) {}
+    rpc focal (FocalRequest) returns (RasterInfoResponse) {}
+    rpc hillshade (HillshadeRequest) returns (RasterInfoResponse) {}
+    rpc project (ProjectRequest) returns (RasterInfoResponse) {}
+    rpc randomize (RandomizeRequest) returns (RasterInfoResponse) {}
+    rpc resample (ResampleRequest) returns (RasterInfoResponse) {}
+    rpc slope (SlopeRequest) returns (RasterInfoResponse) {}
+    rpc thumbnail (ThumbnailRequest) returns (ThumbnailResponse) {}
+}
+
+message TokenRequest { }
+message CheckRequest { string key = 1; string hash = 2; }
+message CreateRequest { string key = 1; string hash = 2; bytes data = 3; Format format = 4; }
+message SaveRequest { string key = 1; string rasterId = 2; Format format = 3; }
+message ThumbnailRequest { string key = 1; string rasterId = 2; }
+
+message MathRequest {
+    string key = 1;
+    Op op = 2;
+    string rasterId = 3;
+    string raster2Id = 4;
+    string raster3Id = 5;
+    int32 intValue = 6;
+    int32 int2Value = 7;
+    int32 int3Value = 8;
+    double doubleValue = 9;
+    double double2Value = 10;
+    double double3Value = 11;
+}
+
+message AspectRequest { string key = 1; string rasterId = 2; ZUnit zUnit = 3; }
+message ColorRequest { string key = 1; string rasterId = 2; string colorramp = 3; }
+message CompositeRequest { string key = 1; repeated string rasterIds = 2; }
+message ExtractRequest { string key = 1; string rasterId = 2; int32 band = 3; }
+message ExtractValuesRequest { string key = 1; string rasterId = 2; repeated Point points = 3; }
+message FocalRequest { string key = 1; string rasterId = 2; int32 radius = 3; int32 width = 4; int32 height = 5; Statistics statistics = 6; bool ignoreNodata = 7; }
+message HillshadeRequest { string key = 1; string rasterId = 2; double zFactor = 3; double azimuth = 4; double altitude = 5; }
+message ProjectRequest { string key = 1; string rasterId = 2; int32 inWkid = 3; int32 outWkid = 4; }
+message RandomizeRequest { string key = 1; string rasterId = 2; }
+message ResampleRequest { string key = 1; string rasterId = 2; double cellSize = 3; Resampling resampling = 4; }
+message SlopeRequest { string key = 1; string rasterId = 2; double zFactor = 3; ZUnit zUnit = 4; }
+
+message Point { double x = 1; double y = 2; }
+
+message TokenResponse { string key = 1; }
+message ThumbnailResponse { string thumbnail = 1; }
+
+message RasterInfoResponse {
+    string id = 1;
+    int32 bandCount = 2;
+    int32 width = 3;
+    int32 height = 4;
+    string pixelType = 5;
+    bool isInteger = 6;
+    double noDataValue = 7;
+    double minimum = 8;
+    double maximum = 9;
+    double mean = 10;
+    double standardDeviation = 11;
+    double meanCellWidth = 12;
+    double meanCellHeight = 13;
+    int32 wkid = 14;
+    string wkt = 15;
+    double xmin = 16;
+    double ymin = 17;
+    double xmax = 18;
+    double ymax = 19;
+}
+
+message RasterInfoArrayResponse {
+    repeated RasterInfoResponse rasters = 1;
+}
+
+message RasterResponse { bytes data = 1; }
+
+message ExtractValuesResponse { repeated double values = 1; }
+
+enum Format { BIL = 0; BIP = 1; BSQ = 2; DAT = 3; IMG = 4; JP2 = 5; MRF = 6; TIF = 7; }
+
+enum Op {
+    Abs = 0;
+    ACos = 1;
+    ACosH = 2;
+    ASin = 3;
+    ASinH = 4;
+    ATan = 5;
+    ATan2 = 6;
+    ATanH = 7;
+    BitwiseAnd = 8;
+    BitwiseLeftShift = 9;
+    BitwiseNot = 10;
+    BitwiseOr = 11;
+    BitwiseRightShift = 12;
+    BitwiseXOr = 13;
+    BooleanAnd = 14;
+    BooleanNot = 15;
+    BooleanOr = 16;
+    BooleanXOr = 17;
+    CombinatorialAnd = 18;
+    CombinatorialOr = 19;
+    CombinatorialXOr = 20;
+    Cos = 21;
+    CosH = 22;
+    Diff = 23;
+    Divide = 24;
+    EqualTo = 25;
+    Exp = 26;
+    Exp10 = 27;
+    Exp2 = 28;
+    Float = 29;
+    GreaterThan = 30;
+    GreaterThanEqual = 31;
+    InList = 32;
+    Int = 33;
+    IsNull = 34;
+    LessThan = 35;
+    LessThanEqual = 36;
+    Ln = 37;
+    Log10 = 38;
+    Log2 = 39;
+    Minus = 40;
+    Mod = 41;
+    Negate = 42;
+    NotEqual = 43;
+    Over = 44;
+    Plus = 45;
+    Power = 46;
+    RoundDown = 47;
+    RoundUp = 48;
+    Sin = 49;
+    SinH = 50;
+    Square = 51;
+    SquareRoot = 52;
+    Tan = 53;
+    TanH = 54;
+    Test = 55;
+    Times = 56;
+
+    Con = 57;
+}
+
+enum Resampling { NEAREST = 0; BILINEAR = 1; CUBIC = 2; }
+
+enum Statistics { MEAN = 0; MAJORITY = 1; MAXIMUM = 2; MEDIAN = 3; MINIMUM = 4; MINORITY = 5; PERCENTILE = 6; RANGE = 7; STD = 8; SUM = 9; VARIETY = 10; }
+
+enum ZUnit { METER = 0; FOOT = 1; }

@@ -1,0 +1,18 @@
+<PAMDataset>
+  <PAMRasterBand band="1">
+    <Description>bd49d5d3c1</Description>
+    <NoDataValue>-2.14748364800000E+09</NoDataValue>
+    <Metadata>
+      <MDI key="BandName">0b06c221</MDI>
+      <MDI key="RepresentationType">ATHEMATIC</MDI>
+      <MDI key="STATISTICS_EXCLUDEDVALUES"></MDI>
+      <MDI key="STATISTICS_MAXIMUM">255</MDI>
+      <MDI key="STATISTICS_MEAN">33.158170942156</MDI>
+      <MDI key="STATISTICS_MEDIAN">nan</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_SKIPFACTORX">1</MDI>
+      <MDI key="STATISTICS_SKIPFACTORY">1</MDI>
+      <MDI key="STATISTICS_STDDEV">47.210116918789</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>

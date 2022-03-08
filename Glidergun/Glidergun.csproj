@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>0.2.0-preview.9</Version>
+		<Authors>Jiro Shirota</Authors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.19.4" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.42.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.43.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\Glidergun.Grpc\glidergun.proto" GrpcServices="Client">
+			<Link>Protos\glidergun.proto</Link>
+		</Protobuf>
+	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="&quot;C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe&quot; -m grpc_tools.protoc -I..\Glidergun.Grpc --python_out=..\Glidergun.Grpc --grpc_python_out=..\Glidergun.Grpc ..\Glidergun.Grpc\glidergun.proto" />
+	</Target>
+
+</Project>
